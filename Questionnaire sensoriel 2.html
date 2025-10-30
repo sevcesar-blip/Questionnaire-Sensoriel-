@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Questionnaire Sensoriel - Sensations Fun !</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .appointment-buttons {
+            display: flex;
+            justify-content: space-between;
+            width: 90%;
+            max-width: 900px;
+            margin-bottom: 20px;
+        }
+        button {
+            padding: 15px 40px;
+            border: none;
+            border-radius: 30px;
+            color: white;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: transform 0.2s, background 0.3s;
+            background: linear-gradient(90deg, #3498db, #2980b9);
+        }
+        button:hover {
+            transform: scale(1.05);
+            background: linear-gradient(90deg, #2980b9, #3498db);
+        }
+        .contact {
+            background-color: #fff;
+            border: 4px solid #3498db;
+            border-radius: 20px;
+            padding: 15px 30px;
+            text-align: center;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(52, 152, 219, 0.2);
+            width: 90%;
+            max-width: 900px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .contact p {
+            margin: 5px 0;
+            font-size: 1.1em;
+            text-align: center;
+        }
+        .contact strong {
+            font-size: 1.3em;
+            color: #3498db;
+        }
+        .contact span.blue {
+            color: #3498db;
+        }
+        h1 {
+            font-size: 2.5em;
+            color: #3498db;
+            margin-bottom: 20px;
+        }
+        .disclaimer {
+            font-size: 0.9em;
+            color: #666;
+            margin-bottom: 30px;
+            max-width: 800px;
+            text-align: center;
+            font-style: italic;
+        }
+        p {
+            font-size: 1.2em;
+            color: #444;
+            margin-bottom: 30px;
+            max-width: 800px;
+            text-align: center;
+        }
+        table {
+            width: 95%;
+            max-width: 1100px;
+            border-collapse: separate;
+            border-spacing: 0 10px;
+            background-color: #fff;
+            border: 2px solid #3498db;
+            border-radius: 15px;
+            box-shadow: 0 6px 15px rgba(52, 152, 219, 0.1);
+            margin-bottom: 30px;
+        }
+        th {
+            background: linear-gradient(90deg, #3498db, #2980b9);
+            color: #fff;
+            font-size: 1.2em;
+            text-transform: uppercase;
+            padding: 15px;
+            border-bottom: 3px solid #2980b9;
+        }
+        td {
+            background-color: #ecf0f1;
+            padding: 15px;
+            border: 1px solid #bdc3c7;
+            border-radius: 10px;
+            transition: background-color 0.3s;
+        }
+        tr:hover td {
+            background-color: #d5e8f5;
+            transition: background-color 0.3s;
+        }
+        input[type="radio"] {
+            accent-color: #3498db;
+            transform: scale(1.6);
+            margin: 0 8px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        input[type="radio"]:hover {
+            transform: scale(1.8);
+            box-shadow: 0 0 10px rgba(52, 152, 219, 0.5);
+        }
+        input[type="radio"]:checked {
+            accent-color: #2980b9;
+            animation: bounce 0.3s ease;
+        }
+        @keyframes bounce {
+            0%, 100% { transform: scale(1.6); }
+            50% { transform: scale(1.7); }
+        }
+        input[type="text"] {
+            padding: 10px;
+            border: 2px solid #3498db;
+            border-radius: 8px;
+            background-color: #fff;
+            color: #1f2937;
+            width: 100%;
+            font-size: 1em;
+            margin-bottom: 15px;
+            transition: border-color 0.3s;
+        }
+        input[type="text"]:focus {
+            border-color: #2980b9;
+            outline: none;
+        }
+        .buttons {
+            display: flex;
+            gap: 20px;
+            margin: 30px 0;
+        }
+        .resultats {
+            display: none;
+            background-color: #fff;
+            padding: 30px;
+            border: 2px solid #3498db;
+            border-radius: 20px;
+            box-shadow: 0 6px 20px rgba(52, 152, 219, 0.1);
+            max-width: 900px;
+            margin-top: 30px;
+            text-align: center;
+        }
+        .profil-adapte {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px 0;
+        }
+        .profil-hypersensible {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px 0;
+        }
+        .profil-hyposensible {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px 0;
+        }
+        .profil-fluctuant {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px 0;
+        }
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            margin: 20px 0;
+            font-size: 1.3em;
+        }
+        .stat {
+            background: rgba(52, 152, 219, 0.1);
+            padding: 15px;
+            border-radius: 10px;
+        }
+        .reflexion {
+            margin-top: 20px;
+            text-align: left;
+            max-width: 800px;
+        }
+        .reflexion h3 {
+            color: #3498db;
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+        .personal-contact {
+            margin-top: 20px;
+            text-align: center;
+            max-width: 800px;
+            font-size: 1em;
+            color: #666;
+        }
+        .preconisations {
+            display: none;
+            margin-top: 15px;
+            padding: 15px;
+            background: linear-gradient(135deg, #2c3e50, #27ae60);
+            border-radius: 10px;
+            text-align: left;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            color: #fff;
+        }
+        .preconisation-btn {
+            background: linear-gradient(90deg, #2ecc71, #27ae60);
+            margin-top: 10px;
+        }
+        .preconisation-btn:hover {
+            background: linear-gradient(90deg, #27ae60, #2ecc71);
+        }
+        .export-btn {
+            margin-top: 20px;
+        }
+    </style>
+    <!-- Inclure les bibliothèques jsPDF et html2canvas -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+    <div class="appointment-buttons">
+        <button onclick="window.open('https://docorga.com/praticien/62f608160a870d1f8c3abe96', '_blank')">RDV avec Séverine</button>
+        <button onclick="window.open('https://docorga.com/praticien/60d987cae4649b445fd41f28', '_blank')">RDV avec Céline</button>
+    </div>
+    <div class="contact">
+        <p><strong>CABINET D’ERGOTHERAPIE CABEX</strong><br>
+        <span class="blue">CABEX ESSONNE</span><br>
+        2 Bis Rue de Flandre – 91220 BRETIGNY SUR ORGE<br>
+        Séverine CESAR TFAYLI: severine.cesar.tfayli@gmail.com – 0767537449<br>
+        Céline HENRY: henryceline.ergo@gmail.com – 0677783048</p>
+    </div>
+    <h1>Questionnaire Sensoriel : Explore tes Sensations !</h1>
+    <div class="disclaimer">
+        Ce questionnaire n'est pas un diagnostic, il est à but informatif et réalisé dans le cadre de cet atelier. Pour toute question ou demande spécifique, veuillez consulter un professionnel de santé.
+    </div>
+    <p>Pour chaque objet ou expérience, coche si c'est <strong>agréable</strong>, <strong>désagréable</strong>, <strong>variable</strong> ou <strong>sans ressenti</strong>. Note aussi la sensation que ça te procure (ex. : détente, curiosité, tension...).</p>
+    
+    <form id="sensorielForm">
+        <table>
+            <thead>
+                <tr>
+                    <th>Objet / Expérience</th>
+                    <th>Agréable</th>
+                    <th>Désagréable</th>
+                    <th>Variable</th>
+                    <th>Sans ressenti</th>
+                    <th>Sensation ressentie</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Élastique de chaise</td>
+                    <td><input type="radio" name="elastique" value="agreable"></td>
+                    <td><input type="radio" name="elastique" value="desagreable"></td>
+                    <td><input type="radio" name="elastique" value="variable"></td>
+                    <td><input type="radio" name="elastique" value="sans_ressenti"></td>
+                    <td><input type="text" name="sensation_elastique" placeholder="Ex: détente, tension..."></td>
+                </tr>
+                <tr>
+                    <td>Objets massant vibrant</td>
+                    <td><input type="radio" name="objets_massant" value="agreable"></td>
+                    <td><input type="radio" name="objets_massant" value="desagreable"></td>
+                    <td><input type="radio" name="objets_massant" value="variable"></td>
+                    <td><input type="radio" name="objets_massant" value="sans_ressenti"></td>
+                    <td><input type="text" name="sensation_objets_massant" placeholder="Ex: détente, tension..."></td>
+                </tr>
+                <tr>
+                    <td>Rouleau de massage</td>
+                    <td><input type="radio" name="rouleau" value="agreable"></td>
+                    <td><input type="radio" name="rouleau" value="desagreable"></td>
+                    <td><input type="radio" name="rouleau" value="variable"></td>
+                    <td><input type="radio" name="rouleau" value="sans_ressenti"></td>
+                    <td><input type="text" name="sensation_rouleau" placeholder="Ex: détente, tension..."></td>
+                </tr>
+                <tr>
+                    <td>Coussin à picots</td>
+                    <td><input type="radio" name="coussin_picots" value="agreable"></td>
+                    <td><input type="radio" name="coussin_picots" value="desagreable"></td>
+                    <td><input type="radio" name="coussin_picots" value="variable"></td>
+                    <td><input type="radio" name="coussin_picots" value="sans_ressenti"></td>
+                    <td><input type="text" name="sensation_coussin_picots" placeholder="Ex: détente, tension..."></td>
+                </tr>
+                <tr>
+                    <td>Balle à picots</td>
+                    <td><input type="radio" name="balle_picots" value="agreable"></td>
+                    <td><input type="radio" name="balle_picots" value="desagreable"></td>
+                    <td><input type="radio" name="balle_picots" value="variable"></td>
+                    <td><input type="radio" name="balle_picots" value="sans_ressenti"></td>
+                    <td><input type="text" name="sensation_balle_picots" placeholder="Ex: détente, tension..."></td>
+                </tr>
+                <tr>
+                    <td>Lampe à fibre</td>
+                    <td><input type="radio" name="lampe_fibre" value="agreable"></td>
+                    <td><input type="radio" name="lampe_fibre" value="desagreable"></td>
+                    <td><input type="radio" name="lampe_fibre" value="variable"></td>
+                    <td><input type="radio" name="lampe_fibre" value="sans_ressenti"></td>
+                    <td><input type="text" name="sensation_lampe_fibre" placeholder="Ex: détente, tension..."></td>
+                </tr>
+                <tr>
+                    <td>Couverture lestée</td>
+                    <td><input type="radio" name="couverture_lestee" value="agreable"></td>
+                    <td><input type="radio" name="couverture_lestee" value="desagreable"></td>
+                    <td><input type="radio" name="couverture_lestee" value="variable"></td>
+                    <td><input type="radio" name="couverture_lestee" value="sans_ressenti"></td>
+                    <td><input type="text" name="sensation_couverture_lestee" placeholder="Ex: détente, tension..."></td>
+                </tr>
+                <tr>
+                    <td>Plateau d’équilibre</td>
+                    <td><input type="radio" name="plateau_equilibre" value="agreable"></td>
+                    <td><input type="radio" name="plateau_equilibre" value="desagreable"></td>
+                    <td><input type="radio" name="plateau_equilibre" value="variable"></td>
+                    <td><input type="radio" name="plateau_equilibre" value="sans_ressenti"></td>
+                    <td><input type="text" name="sensation_plateau_equilibre" placeholder="Ex: détente, tension..."></td>
+                </tr>
+                <tr>
+                    <td>Ballon de gym</td>
+                    <td><input type="radio" name="ballon_gym" value="agreable"></td>
+                    <td><input type="radio" name="ballon_gym" value="desagreable"></td>
+                    <td><input type="radio" name="ballon_gym" value="variable"></td>
+                    <td><input type="radio" name="ballon_gym" value="sans_ressenti"></td>
+                    <td><input type="text" name="sensation_ballon_gym" placeholder="Ex: détente, tension..."></td>
+                </tr>
+                <tr>
+                    <td>Slim / pâte sensorielle</td>
+                    <td><input type="radio" name="slim" value="agreable"></td>
+                    <td><input type="radio" name="slim" value="desagreable"></td>
+                    <td><input type="radio" name="slim" value="variable"></td>
+                    <td><input type="radio" name="slim" value="sans_ressenti"></td>
+                    <td><input type="text" name="sensation_slim" placeholder="Ex: détente, tension..."></td>
+                </tr>
+                <tr>
+                    <td>Z-Vibe</td>
+                    <td><input type="radio" name="zvibe" value="agreable"></td>
+                    <td><input type="radio" name="zvibe" value="desagreable"></td>
+                    <td><input type="radio" name="zvibe" value="variable"></td>
+                    <td><input type="radio" name="zvibe" value="sans_ressenti"></td>
+                    <td><input type="text" name="sensation_zvibe" placeholder="Ex: détente, tension..."></td>
+                </tr>
+                <tr>
+                    <td>Entendre des bruits forts (klaxon, musique forte, moto, etc.)</td>
+                    <td><input type="radio" name="bruits_forts" value="agreable"></td>
+                    <td><input type="radio" name="bruits_forts" value="desagreable"></td>
+                    <td><input type="radio" name="bruits_forts" value="variable"></td>
+                    <td><input type="radio" name="bruits_forts" value="sans_ressenti"></td>
+                    <td><input type="text" name="sensation_bruits_forts" placeholder="Ex: détente, tension..."></td>
+                </tr>
+                <tr>
+                    <td>Manipuler une boule anti-stress</td>
+                    <td><input type="radio" name="boule_antistress" value="agreable"></td>
+                    <td><input type="radio" name="boule_antistress" value="desagreable"></td>
+                    <td><input type="radio" name="boule_antistress" value="variable"></td>
+                    <td><input type="radio" name="boule_antistress" value="sans_ressenti"></td>
+                    <td><input type="text" name="sensation_boule_antistress" placeholder="Ex: détente, tension..."></td>
+                </tr>
+                <tr>
+                    <td>Marcher sur un tapis texturé</td>
+                    <td><input type="radio" name="tapis_texture" value="agreable"></td>
+                    <td><input type="radio" name="tapis_texture" value="desagreable"></td>
+                    <td><input type="radio" name="tapis_texture" value="variable"></td>
+                    <td><input type="radio" name="tapis_texture" value="sans_ressenti"></td>
+                    <td><input type="text" name="sensation_tapis_texture" placeholder="Ex: détente, tension..."></td>
+                </tr>
+                <tr>
+                    <td>Observer un projecteur de motifs lumineux</td>
+                    <td><input type="radio" name="projecteur_lumineux" value="agreable"></td>
+                    <td><input type="radio" name="projecteur_lumineux" value="desagreable"></td>
+                    <td><input type="radio" name="projecteur_lumineux" value="variable"></td>
+                    <td><input type="radio" name="projecteur_lumineux" value="sans_ressenti"></td>
+                    <td><input type="text" name="sensation_projecteur_lumineux" placeholder="Ex: détente, tension..."></td>
+                </tr>
+                <tr>
+                    <td>Peluche lestée</td>
+                    <td><input type="radio" name="peluche_lestee" value="agreable"></td>
+                    <td><input type="radio" name="peluche_lestee" value="desagreable"></td>
+                    <td><input type="radio" name="peluche_lestee" value="variable"></td>
+                    <td><input type="radio" name="peluche_lestee" value="sans_ressenti"></td>
+                    <td><input type="text" name="sensation_peluche_lestee" placeholder="Ex: détente, tension..."></td>
+                </tr>
+                <tr>
+                    <td>Pop-it / Fidget</td>
+                    <td><input type="radio" name="pop_it" value="agreable"></td>
+                    <td><input type="radio" name="pop_it" value="desagreable"></td>
+                    <td><input type="radio" name="pop_it" value="variable"></td>
+                    <td><input type="radio" name="pop_it" value="sans_ressenti"></td>
+                    <td><input type="text" name="sensation_pop_it" placeholder="Ex: détente, tension..."></td>
+                </tr>
+                <tr>
+                    <td>Sablier visuel</td>
+                    <td><input type="radio" name="sablier_visuel" value="agreable"></td>
+                    <td><input type="radio" name="sablier_visuel" value="desagreable"></td>
+                    <td><input type="radio" name="sablier_visuel" value="variable"></td>
+                    <td><input type="radio" name="sablier_visuel" value="sans_ressenti"></td>
+                    <td><input type="text" name="sensation_sablier_visuel" placeholder="Ex: détente, tension..."></td>
+                </tr>
+                <tr>
+                    <td>Bouteille sensorielle (visuelle)</td>
+                    <td><input type="radio" name="bouteille_sensorielle" value="agreable"></td>
+                    <td><input type="radio" name="bouteille_sensorielle" value="desagreable"></td>
+                    <td><input type="radio" name="bouteille_sensorielle" value="variable"></td>
+                    <td><input type="radio" name="bouteille_sensorielle" value="sans_ressenti"></td>
+                    <td><input type="text" name="sensation_bouteille_sensorielle" placeholder="Ex: détente, tension..."></td>
+                </tr>
+                <tr>
+                    <td>Tableau d’activité sensorielle (stick labyrinthe)</td>
+                    <td><input type="radio" name="tableau_activite" value="agreable"></td>
+                    <td><input type="radio" name="tableau_activite" value="desagreable"></td>
+                    <td><input type="radio" name="tableau_activite" value="variable"></td>
+                    <td><input type="radio" name="tableau_activite" value="sans_ressenti"></td>
+                    <td><input type="text" name="sensation_tableau_activite" placeholder="Ex: détente, tension..."></td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="buttons">
+            <button type="button" class="analyze-btn" onclick="analyserResultats()">Voir mon profil</button>
+        </div>
+    </form>
+
+    <div id="resultats" class="resultats">
+        <h2>Votre Profil Sensoriel Potentiel</h2>
+        <div class="stats" id="stats"></div>
+        <div id="interpretation" class="profil-adapte"></div>
+        <div class="reflexion">
+            <h3>Questions de réflexion :</h3>
+            <div>
+                <label>1. Quel matériel vous a le plus apaisé ? Pourquoi ?</label><br>
+                <input type="text" name="reflexion1" placeholder="Votre réponse...">
+            </div>
+            <div>
+                <label>2. Quel matériel vous a mis le plus mal à l’aise ?</label><br>
+                <input type="text" name="reflexion2" placeholder="Votre réponse...">
+            </div>
+            <div>
+                <label>4. Qu’avez-vous découvert sur vous aujourd’hui ?</label><br>
+                <input type="text" name="reflexion4" placeholder="Votre réponse...">
+            </div>
+        </div>
+        <div class="personal-contact">
+            <p>Séverine: severine.cesar.tfayli@gmail.com – 0767537449<br>
+            Céline: henryceline.ergo@gmail.com – 0677783048</p>
+        </div>
+    </div>
+
+    <script>
+        function analyserResultats() {
+            const form = document.getElementById('sensorielForm');
+            const resultats = document.getElementById('resultats');
+            const stats = document.getElementById('stats');
+            const interpretation = document.getElementById('interpretation');
+            let totalReponses = 0;
+            let agreableCount = 0;
+            let desagreableCount = 0;
+            let variableCount = 0;
+            let sansRessentiCount = 0;
+
+            // Parcourir tous les groupes de radio
+            const radios = form.querySelectorAll('input[type="radio"]:checked');
+            totalReponses = radios.length;
+
+            radios.forEach(radio => {
+                if (radio.value === 'agreable') agreableCount++;
+                if (radio.value === 'desagreable') desagreableCount++;
+                if (radio.value === 'variable') variableCount++;
+                if (radio.value === 'sans_ressenti') sansRessentiCount++;
+            });
+
+            // Calcul des pourcentages des réponses (seulement si au moins une réponse est cochée)
+            if (totalReponses > 0) {
+                const pourcentAgreable = (agreableCount / totalReponses * 100).toFixed(1);
+                const pourcentDesagreable = (desagreableCount / totalReponses * 100).toFixed(1);
+                const pourcentVariable = (variableCount / totalReponses * 100).toFixed(1);
+                const pourcentSansRessenti = (sansRessentiCount / totalReponses * 100).toFixed(1);
+
+                // Créer un tableau des pourcentages avec leurs catégories
+                const percentages = [
+                    { category: 'Agréable', value: pourcentAgreable },
+                    { category: 'Désagréable', value: pourcentDesagreable },
+                    { category: 'Variable', value: pourcentVariable },
+                    { category: 'Sans ressenti', value: pourcentSansRessenti }
+                ];
+
+                // Trier par ordre décroissant et prendre les 3 premiers
+                percentages.sort((a, b) => b.value - a.value);
+                const topThree = percentages.slice(0, 3);
+
+                // Afficher les trois principaux pourcentages
+                stats.innerHTML = topThree.map(item => `
+                    <div class="stat">${item.category} : ${item.value}%</div>
+                `).join('');
+
+                // Déterminer le profil et gérer les préconisations
+                const maxCategory = topThree[0].category;
+                if (maxCategory === 'Sans ressenti') {
+                    interpretation.innerHTML = `
+                        <strong>Profil Hyposensible (recherche sensorielle) :</strong><br>
+                        Besoin accru de stimulation pour percevoir une sensation<br>
+                        Recherche de contact, bouge beaucoup, appuie fort, touche à tout, aime les stimulations intenses<br><br>
+                        <button type="button" class="preconisation-btn" onclick="togglePreconisations(this)">Voir mes exemples de préconisation</button>
+                        <div class="preconisations">
+                            <strong>Préconisations :</strong><br>
+                            <strong>Aménagement possibles :</strong><br>
+                            • Intégrer des micro-pauses motrices (se lever, sauter, étirer, pousser le mur).<br>
+                            • Utiliser des outils de régulation pendant les apprentissages (fidget, élastique de chaise, coussin d’assise).<br>
+                            • Valoriser les activités à forte composante proprioceptive (porter, pousser, tirer, ramper).<br><br>
+                            <strong>Outils ou matériel recommandé :</strong><br>
+                            • Coussin / peluche lestée <!-- Ajoutez ici : <img src="chemin/vers/image_coussin.jpg" alt="Coussin lesté"> --><br>
+                            • Rouleau massant <!-- Ajoutez ici : <img src="chemin/vers/image_rouleau.jpg" alt="Rouleau massant"> --><br>
+                            • Élastique de chaise <!-- Ajoutez ici : <img src="chemin/vers/image_elastique.jpg" alt="Élastique de chaise"> --><br>
+                            • Balle à picots <!-- Ajoutez ici : <img src="chemin/vers/image_balle.jpg" alt="Balle à picots"> --><br>
+                            • Slim / pâte sensorielle <!-- Ajoutez ici : <img src="chemin/vers/image_slim.jpg" alt="Slim sensoriel"> --><br>
+                            • Plateau d’équilibre <!-- Ajoutez ici : <img src="chemin/vers/image_plateau.jpg" alt="Plateau d’équilibre"> -->
+                        </div>
+                    `;
+                    interpretation.className = 'profil-hyposensible';
+                } else if (maxCategory === 'Désagréable') {
+                    interpretation.innerHTML = `
+                        <strong>Profil Hypersensible (défensivité sensorielle) :</strong><br>
+                        Seuil bas de tolérance sensorielle, les sensations sont vite perçues comme désagréables<br>
+                        Évite certains objets, réactions de retrait, crispation, grimace, repli ou refus<br><br>
+                        <button type="button" class="preconisation-btn" onclick="togglePreconisations(this)">Voir mes exemples de préconisation</button>
+                        <div class="preconisations">
+                            <strong>Préconisations :</strong><br>
+                            <strong>Il faut :</strong><br>
+                            • Diminuer la surcharge sensorielle.<br>
+                            • Sécuriser le cadre pour permettre l’exposition graduée.<br>
+                            • Travailler la tolérance sensorielle progressive.<br><br>
+                            <strong>Aménagements possibles :</strong><br>
+                            • Créer un coin calme / espace refuge.<br>
+                            • Réduire les stimuli parasites (bruits, odeurs, lumières vives).<br>
+                            • Introduire les stimulations nouvelles progressivement, avec prévisibilité.<br>
+                            • Utiliser des routines sensorielles rassurantes (pression profonde, massages légers).<br><br>
+                            <strong>Outils ou matériel recommandé :</strong><br>
+                            • Couverture ou peluche lestée <!-- Ajoutez ici : <img src="chemin/vers/image_couverture.jpg" alt="Couverture lestée"> --><br>
+                            • Bouteille sensorielle (effet visuel doux) <!-- Ajoutez ici : <img src="chemin/vers/image_bouteille.jpg" alt="Bouteille sensorielle"> --><br>
+                            • Lampe à fibres optiques <!-- Ajoutez ici : <img src="chemin/vers/image_lampe.jpg" alt="Lampe à fibres"> --><br>
+                            • Casque anti-bruit <!-- Ajoutez ici : <img src="chemin/vers/image_casque.jpg" alt="Casque anti-bruit"> --><br>
+                            • Brossage sensoriel doux <!-- Ajoutez ici : <img src="chemin/vers/image_brossage.jpg" alt="Brossage sensoriel"> -->
+                        </div>
+                    `;
+                    interpretation.className = 'profil-hypersensible';
+                } else if (maxCategory === 'Variable') {
+                    interpretation.innerHTML = `
+                        <strong>Profil Fluctuant / Variable :</strong><br>
+                        Réactions sensorielles instables selon la fatigue, l’environnement, le stress ou la nouveauté<br><br>
+                        <button type="button" class="preconisation-btn" onclick="togglePreconisations(this)">Voir mes exemples de préconisation</button>
+                        <div class="preconisations">
+                            <strong>Préconisations :</strong><br>
+                            <strong>Il faut :</strong><br>
+                            • Stabiliser les repères sensoriels.<br>
+                            • Favoriser l’auto-observation et la verbalisation des ressentis.<br>
+                            • Adapter l’environnement en fonction de l’état du jour.<br><br>
+                            <strong>Aménagements possibles :</strong><br>
+                            • Observer le moment de la journée où l’enfant est le plus apte à travailler.<br>
+                            • Mettre à disposition des outils variés selon le besoin (coin calme, coin mouvement).<br>
+                            • Introduire la roue des émotions / énergie pour l’aider à s’auto-réguler.<br><br>
+                            <strong>Outils ou matériel recommandé :</strong><br>
+                            • Tableau d’activité sensorielle (stick labyrinthe) <!-- Ajoutez ici : <img src="chemin/vers/image_tableau.jpg" alt="Tableau sensoriel"> --><br>
+                            • Pop-it ou fidget <!-- Ajoutez ici : <img src="chemin/vers/image_popit.jpg" alt="Pop-it"> --><br>
+                            • Sablier visuel <!-- Ajoutez ici : <img src="chemin/vers/image_sablier.jpg" alt="Sablier visuel"> --><br>
+                            • Coussin lesté ou de posture dynamique <!-- Ajoutez ici : <img src="chemin/vers/image_coussin_dynamique.jpg" alt="Coussin dynamique"> -->
+                        </div>
+                    `;
+                    interpretation.className = 'profil-fluctuant';
+                } else if (maxCategory === 'Agréable') {
+                    interpretation.innerHTML = `
+                        <strong>Profil Adapté :</strong><br>
+                        Réponses équilibrées, sensations bien intégrées<br>
+                        Capacité à tester, verbaliser, réguler la réponse sensorielle sans débordement<br><br>
+                        <button type="button" class="preconisation-btn" onclick="togglePreconisations(this)">Voir mes exemples de préconisation</button>
+                        <div class="preconisations">
+                            <strong>Préconisations :</strong><br>
+                            Aucune préconisation spécifique nécessaire en raison d'un profil adapté. Continuez à explorer vos sensations de manière équilibrée !
+                        </div>
+                    `;
+                    interpretation.className = 'profil-adapte';
+                } else {
+                    interpretation.innerHTML = `
+                        <strong>Profil à explorer :</strong><br>
+                        Vos réponses ne montrent pas de majorité claire. Discutez avec l’animateur pour approfondir !<br><br>
+                        <button type="button" class="preconisation-btn" onclick="togglePreconisations(this)">Voir mes exemples de préconisation</button>
+                        <div class="preconisations">
+                            <strong>Préconisations :</strong><br>
+                            Une analyse plus approfondie avec un professionnel est recommandée pour mieux comprendre vos besoins sensoriels.
+                        </div>
+                    `;
+                    interpretation.className = 'profil-adapte';
+                }
+
+                // Ajouter le bouton "Exporter en PDF" après les préconisations
+                const exportButton = document.createElement('button');
+                exportButton.type = 'button';
+                exportButton.className = 'export-btn';
+                exportButton.textContent = 'Exporter en PDF';
+                exportButton.onclick = exportToPDF;
+                interpretation.appendChild(exportButton);
+
+                resultats.style.display = 'block';
+            } else {
+                alert("Veuillez cocher au moins une réponse avant d'analyser !");
+            }
+        }
+
+        function togglePreconisations(button) {
+            const preconisations = button.nextElementSibling;
+            if (preconisations.style.display === 'none' || preconisations.style.display === '') {
+                preconisations.style.display = 'block';
+                button.textContent = 'Masquer les exemples de préconisation';
+            } else {
+                preconisations.style.display = 'none';
+                button.textContent = 'Voir mes exemples de préconisation';
+            }
+        }
+
+        function exportToPDF() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            const element = document.body; // Capture tout le body
+
+            html2canvas(element).then(canvas => {
+                const imgData = canvas.toDataURL('image/png');
+                const imgProps = doc.getImageProperties(imgData);
+                const pdfWidth = doc.internal.pageSize.getWidth();
+                const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+
+                // Ajouter des pages si nécessaire pour tout capturer
+                let heightLeft = pdfHeight;
+                let position = 0;
+
+                doc.addImage(imgData, 'PNG', 0, position, pdfWidth, pdfHeight);
+                heightLeft -= doc.internal.pageSize.getHeight();
+
+                while (heightLeft > 0) {
+                    position = heightLeft - pdfHeight;
+                    doc.addPage();
+                    doc.addImage(imgData, 'PNG', 0, position, pdfWidth, pdfHeight);
+                    heightLeft -= doc.internal.pageSize.getHeight();
+                }
+
+                // Ajouter la date et l'heure actuelles au PDF
+                const now = new Date();
+                const dateTimeString = now.toLocaleString('fr-FR', { 
+                    timeZone: 'Europe/Paris', 
+                    hour12: false,
+                    day: '2-digit',
+                    month: '2-digit',
+                    year: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                });
+                doc.setFontSize(10);
+                doc.text(`Exporté le : ${dateTimeString}`, 10, 10);
+
+                doc.save(`questionnaire_sensoriel_${dateTimeString.replace(/[:/]/g, '-')}.pdf`);
+            });
+        }
+    </script>
+</body>
+</html>
